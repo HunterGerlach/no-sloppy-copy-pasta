@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>No Sloppy Copy Pasta</title>
+  <meta name="description" content="Use AI all you want. Just read, edit, and own it before you hit send.">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nosloppycopypasta.com">
+  <meta property="og:title" content="No Sloppy Copy Pasta">
+  <meta property="og:description" content="Use AI all you want. Just read, edit, and own it before you hit send.">
+  <meta property="og:image" content="https://nosloppycopypasta.com/og-image.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="No Sloppy Copy Pasta">
+  <meta name="twitter:description" content="Use AI all you want. Just read, edit, and own it before you hit send.">
+  <meta name="twitter:image" content="https://nosloppycopypasta.com/og-image.png">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --gold: #f0b429;
+      --red: #e05252;
+      --green: #3fb950;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --mono: "JetBrains Mono", "Fira Code", "Cascadia Code", Consolas, monospace;
+    }
+
+    [data-theme="light"] {
+      --bg: #fafafa;
+      --surface: #ffffff;
+      --text: #1a1a2e;
+      --muted: #6b7280;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 18px;
+      line-height: 1.6;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      right: 0;
+      padding: 1rem 1.5rem;
+      z-index: 10;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--muted);
+      color: var(--text);
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 0.4rem 0.6rem;
+      border-radius: 8px;
+      transition: border-color 0.2s;
+      line-height: 1;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--gold);
+    }
+
+    main {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 5rem 1.5rem 3rem;
+    }
+
+    section {
+      margin-bottom: 5rem;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      font-weight: 800;
+      margin: 0 0 0.5rem;
+      letter-spacing: -0.02em;
+      color: var(--gold);
+    }
+
+    .subtitle {
+      font-size: clamp(1.1rem, 3vw, 1.4rem);
+      color: var(--muted);
+      font-style: italic;
+      margin: 0 0 2.5rem;
+    }
+
+    .hero-intro {
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-top: 2.5rem;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* SVG illustration */
+    .illustration {
+      max-width: 340px;
+      margin: 0 auto;
+    }
+
+    .illustration svg {
+      width: 100%;
+      height: auto;
+    }
+
+    /* Section headings */
+    h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin: 0 0 1.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .bad-label { color: var(--red); }
+    .good-label { color: var(--green); }
+
+    /* Example cards */
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .comparison {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border-left: 4px solid;
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      line-height: 1.65;
+      transition: background-color 0.2s;
+    }
+
+    .card-bad { border-color: var(--red); }
+    .card-good { border-color: var(--green); }
+
+    .card-header {
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .card-bad .card-header { color: var(--red); }
+    .card-good .card-header { color: var(--green); }
+
+    .callout {
+      color: var(--muted);
+      font-style: italic;
+      margin-top: 1.5rem;
+      font-size: 1rem;
+    }
+
+    /* Rules */
+    .rules {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      counter-reset: rules;
+    }
+
+    .rules li {
+      counter-increment: rules;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid var(--surface);
+      display: flex;
+      gap: 1rem;
+      align-items: baseline;
+    }
+
+    .rules li::before {
+      content: counter(rules);
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: var(--gold);
+      flex-shrink: 0;
+      width: 1.5rem;
+      text-align: center;
+    }
+
+    .rules strong {
+      color: var(--text);
+    }
+
+    .rules .detail {
+      color: var(--muted);
+    }
+
+    /* TLDR */
+    .tldr {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      border: 1px solid var(--gold);
+      margin-bottom: 2rem;
+      transition: background-color 0.2s;
+    }
+
+    .tldr blockquote {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    /* Share */
+    .share-section {
+      text-align: center;
+    }
+
+    .share-section p {
+      max-width: 480px;
+      margin: 0 auto 2rem;
+      color: var(--muted);
+    }
+
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--gold);
+      color: #0d1117;
+      border: none;
+      font-family: var(--font);
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 0.9rem 2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.15s, opacity 0.15s;
+    }
+
+    .copy-btn:hover {
+      transform: translateY(-1px);
+      opacity: 0.9;
+    }
+
+    .copy-btn:active {
+      transform: translateY(0);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--surface);
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: underline;
+      text-decoration-color: var(--muted);
+      text-underline-offset: 2px;
+    }
+
+    footer a:hover {
+      color: var(--gold);
+      text-decoration-color: var(--gold);
+    }
+
+    a { color: var(--gold); }
+  </style>
+</head>
+<body>
+
+<header>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+    <span id="themeIcon">&#9790;</span>
+  </button>
+</header>
+
+<main>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>No Sloppy Copy Pasta</h1>
+    <p class="subtitle">Your AI wrote it. But did <em>you</em> read it?</p>
+
+    <div class="illustration">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 260" aria-label="A plate of messy spaghetti with AI-generated text tangled in the pasta strands">
+        <!-- Plate shadow -->
+        <ellipse cx="170" cy="195" rx="140" ry="50" fill="#1a1f26" opacity="0.5"/>
+        <!-- Plate -->
+        <ellipse cx="170" cy="180" rx="135" ry="48" fill="#e6edf3" opacity="0.12"/>
+        <ellipse cx="170" cy="180" rx="135" ry="48" fill="none" stroke="#8b949e" stroke-width="1.5" opacity="0.4"/>
+        <ellipse cx="170" cy="175" rx="115" ry="38" fill="none" stroke="#8b949e" stroke-width="0.5" opacity="0.2"/>
+
+        <!-- Pasta strands - tangled mess -->
+        <g fill="none" stroke="#f0b429" stroke-width="3" stroke-linecap="round" opacity="0.9">
+          <!-- Main tangle -->
+          <path d="M90 165 Q100 130 130 150 Q150 165 125 155 Q100 145 120 130 Q145 115 160 145 Q170 165 145 160"/>
+          <path d="M130 170 Q160 140 155 160 Q150 180 180 155 Q200 135 190 160 Q180 185 210 160"/>
+          <path d="M100 155 Q120 120 150 140 Q170 155 140 150 Q110 145 135 125 Q165 105 185 140 Q195 165 170 155"/>
+          <path d="M155 170 Q185 145 175 165 Q165 185 200 155 Q225 130 215 160 Q205 185 240 165"/>
+          <path d="M80 175 Q95 150 115 165 Q130 175 110 170 Q90 165 105 150"/>
+          <path d="M200 170 Q220 145 230 165 Q235 180 250 165 Q260 150 255 170"/>
+
+          <!-- Strands falling off plate -->
+          <path d="M70 180 Q55 195 50 215 Q48 230 55 240" stroke-width="2.5" opacity="0.6"/>
+          <path d="M265 175 Q280 190 285 210 Q287 225 282 238" stroke-width="2.5" opacity="0.6"/>
+          <path d="M60 185 Q45 200 42 225" stroke-width="2" opacity="0.4"/>
+        </g>
+
+        <!-- AI slop text woven into pasta (low opacity) -->
+        <g font-family="monospace" font-size="7" fill="#f0b429" opacity="0.2" transform="rotate(-8 170 155)">
+          <text x="88" y="142">As an AI language model...</text>
+          <text x="108" y="158">It's worth noting that</text>
+          <text x="95" y="170">Great question!</text>
+          <text x="150" y="148">There are several key</text>
+          <text x="130" y="180">considerations to keep</text>
+        </g>
+
+        <!-- Fork -->
+        <g transform="translate(175, 80) rotate(20)">
+          <!-- Handle -->
+          <rect x="-2" y="0" width="4" height="80" rx="2" fill="#8b949e" opacity="0.7"/>
+          <!-- Tines -->
+          <rect x="-8" y="-20" width="2" height="22" rx="1" fill="#8b949e" opacity="0.7"/>
+          <rect x="-3" y="-22" width="2" height="24" rx="1" fill="#8b949e" opacity="0.7"/>
+          <rect x="2" y="-22" width="2" height="24" rx="1" fill="#8b949e" opacity="0.7"/>
+          <rect x="7" y="-20" width="2" height="22" rx="1" fill="#8b949e" opacity="0.7"/>
+          <!-- Pasta wrapped on fork -->
+          <path d="M-10 -5 Q-5 -12 0 -5 Q5 2 10 -5 Q5 -15 -2 -8 Q-10 0 -8 -8" fill="none" stroke="#f0b429" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>
+        </g>
+
+        <!-- Small sauce splatter for personality -->
+        <circle cx="100" cy="170" r="3" fill="#e05252" opacity="0.3"/>
+        <circle cx="220" cy="165" r="2" fill="#e05252" opacity="0.25"/>
+        <circle cx="150" cy="175" r="2.5" fill="#e05252" opacity="0.2"/>
+      </svg>
+    </div>
+
+    <p class="hero-intro">
+      When you paste raw AI output into a conversation, document, or pull request
+      without reading, editing, or synthesizing it &mdash; that's <strong>sloppy copy pasta</strong>.
+      It wastes everyone's time, including yours.
+    </p>
+  </section>
+
+  <!-- Before / After -->
+  <section>
+    <h2>Spot the difference</h2>
+    <div class="comparison">
+
+      <div class="card card-bad">
+        <div class="card-header">The Sloppy Pasta</div>
+        <p>Great question! There are several important considerations when thinking about whether we should migrate the user service to async processing.</p>
+        <p>First and foremost, it's worth noting that async processing can offer significant performance improvements in many scenarios. The key benefits include:</p>
+        <p>&bull; Improved throughput and scalability<br>
+        &bull; Better resource utilization across the system<br>
+        &bull; Enhanced ability to handle concurrent requests<br>
+        &bull; More efficient use of system resources</p>
+        <p>However, it's also important to consider the potential challenges, such as increased complexity in error handling and debugging. That said, the benefits generally outweigh the drawbacks in most production environments.</p>
+        <p>I hope this helps! Let me know if you'd like me to elaborate on any of these points.</p>
+      </div>
+
+      <div class="card card-good">
+        <div class="card-header">Al Dente</div>
+        <p>We should migrate the user service to async. The current sync handlers are our #1 bottleneck under load &mdash; p99 latency spikes to 4s during peak hours.</p>
+        <p>I'd start with the notification and email endpoints since they're fire-and-forget. The auth flow should stay sync for now (too risky mid-quarter).</p>
+        <p>Main risk is error handling &mdash; I'll add dead letter queues from the start so we don't lose failed jobs silently.</p>
+        <p>Want me to draft the RFC?</p>
+      </div>
+
+    </div>
+
+    <p class="callout">Same topic. One is a wall of AI filler. The other has a point of view, specific data, and a clear next step. Took 2 minutes to edit.</p>
+  </section>
+
+  <!-- Rules -->
+  <section>
+    <h2>How to not be sloppy</h2>
+    <ol class="rules">
+      <li>
+        <div>
+          <strong>Read it first.</strong>
+          <span class="detail"> If you didn't read it, don't send it. If you can't be bothered to read your own message, why should anyone else?</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Cut the fluff.</strong>
+          <span class="detail"> Remove "Great question!", "It's worth noting", "I hope this helps", and every other phrase that says nothing. Be direct.</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Add your judgment.</strong>
+          <span class="detail"> AI gives you options. Your job is to pick one, explain why, and commit to a recommendation. That's the value you add.</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Match the context.</strong>
+          <span class="detail"> A Slack reply isn't a whitepaper. A PR comment isn't an essay. Adjust the length and tone to where you're sending it.</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Own it.</strong>
+          <span class="detail"> The moment you hit send, it's yours. Don't hide behind "the AI said." If you're sending it, you're endorsing it.</span>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- TL;DR + Share -->
+  <section class="share-section">
+    <div class="tldr">
+      <blockquote>"Use AI all you want. Just read, edit, and own it before you hit send."</blockquote>
+    </div>
+
+    <p>
+      We all use AI. That's fine. The sloppy part isn't using AI &mdash;
+      it's not caring enough to make the output yours before you share it.
+      Next time you're about to paste a wall of AI text, take 2 minutes.
+      Your teammates will thank you.
+    </p>
+
+    <button class="copy-btn" id="copyBtn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+      Copy Link
+    </button>
+  </section>
+
+</main>
+
+<footer>
+  <p>Made with care (not copy-pasted) &middot; <a href="https://github.com/huntergerlach/no-sloppy-copy-pasta" target="_blank" rel="noopener">View on GitHub</a></p>
+</footer>
+
+<script>
+  // Theme toggle
+  const toggle = document.getElementById('themeToggle');
+  const icon = document.getElementById('themeIcon');
+  const html = document.documentElement;
+
+  function setTheme(theme) {
+    html.setAttribute('data-theme', theme);
+    icon.textContent = theme === 'dark' ? '\u263E' : '\u2600';
+    localStorage.setItem('theme', theme);
+  }
+
+  // Init: check stored preference, then OS preference
+  const stored = localStorage.getItem('theme');
+  if (stored) {
+    setTheme(stored);
+  } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+    setTheme('light');
+  }
+
+  toggle.addEventListener('click', () => {
+    setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+
+  // Copy link button
+  const copyBtn = document.getElementById('copyBtn');
+  copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText('https://nosloppycopypasta.com').then(() => {
+      const original = copyBtn.innerHTML;
+      copyBtn.textContent = 'Copied!';
+      setTimeout(() => { copyBtn.innerHTML = original; }, 2000);
+    });
+  });
+</script>
+
+</body>
+</html>
