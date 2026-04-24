@@ -120,7 +120,7 @@
 
     /* SVG illustration */
     .illustration {
-      max-width: 340px;
+      max-width: 580px;
       margin: 0 auto;
     }
 
@@ -317,88 +317,115 @@
     <h1>No Sloppy Copy Pasta</h1>
     <p class="subtitle">Your AI wrote it. But did <em>you</em> read it?</p>
 
-    <div class="illustration">
-      <svg id="pastaSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 290" aria-label="A plate of messy spaghetti with AI-generated text tangled in the pasta strands">
-        <!-- Plate shadow -->
-        <ellipse cx="170" cy="195" rx="140" ry="50" fill="#1a1f26" opacity="0.5"/>
-        <!-- Plate -->
-        <ellipse cx="170" cy="180" rx="135" ry="48" fill="#e6edf3" opacity="0.12"/>
-        <ellipse cx="170" cy="180" rx="135" ry="48" fill="none" stroke="#8b949e" stroke-width="1.5" opacity="0.4"/>
-        <ellipse cx="170" cy="175" rx="115" ry="38" fill="none" stroke="#8b949e" stroke-width="0.5" opacity="0.2"/>
+    <div class="illustration" style="max-width:580px;">
+      <svg id="pastaSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 240" aria-label="A fork sloppily moving spaghetti from one plate to another">
 
-        <!-- Pasta strands - tangled mess -->
-        <g id="pastaMain" fill="none" stroke="#f0b429" stroke-width="3" stroke-linecap="round" opacity="0.9" style="transition: transform 0.3s ease-out;">
-          <!-- Main tangle -->
-          <path d="M90 165 Q100 130 130 150 Q150 165 125 155 Q100 145 120 130 Q145 115 160 145 Q170 165 145 160"/>
-          <path d="M130 170 Q160 140 155 160 Q150 180 180 155 Q200 135 190 160 Q180 185 210 160"/>
-          <path d="M100 155 Q120 120 150 140 Q170 155 140 150 Q110 145 135 125 Q165 105 185 140 Q195 165 170 155"/>
-          <path d="M155 170 Q185 145 175 165 Q165 185 200 155 Q225 130 215 160 Q205 185 240 165"/>
-          <path d="M80 175 Q95 150 115 165 Q130 175 110 170 Q90 165 105 150"/>
-          <path d="M200 170 Q220 145 230 165 Q235 180 250 165 Q260 150 255 170"/>
+        <!-- LEFT PLATE (source — full of pasta) -->
+        <ellipse cx="145" cy="175" rx="110" ry="40" fill="#1a1f26" opacity="0.5"/>
+        <ellipse cx="145" cy="165" rx="105" ry="38" fill="#e6edf3" opacity="0.12"/>
+        <ellipse cx="145" cy="165" rx="105" ry="38" fill="none" stroke="#8b949e" stroke-width="1.5" opacity="0.4"/>
+
+        <!-- Left plate pasta (fades as scroll progresses) -->
+        <g id="leftPasta" fill="none" stroke="#f0b429" stroke-width="2.5" stroke-linecap="round" opacity="0.9">
+          <path d="M80 155 Q95 125 115 145 Q130 158 110 150 Q90 142 108 128 Q130 112 145 140 Q152 158 130 152"/>
+          <path d="M110 162 Q140 135 135 155 Q130 170 155 148 Q170 132 162 155 Q155 172 180 155"/>
+          <path d="M90 148 Q108 118 135 138 Q150 150 125 145 Q100 140 120 122 Q148 105 165 135 Q172 155 152 148"/>
+          <path d="M135 162 Q158 142 150 158 Q142 172 170 150 Q188 132 180 155 Q175 170 200 158"/>
+          <path d="M72 168 Q85 148 100 160 Q112 168 95 163 Q78 158 92 145"/>
+          <path d="M170 162 Q185 145 192 158 Q196 168 208 158 Q215 148 212 162"/>
         </g>
 
-        <!-- Strands falling off plate (animate separately) -->
-        <g id="pastaFalling" fill="none" stroke="#f0b429" stroke-linecap="round" style="transition: transform 0.3s ease-out, opacity 0.3s ease-out;">
-          <path d="M70 180 Q55 195 50 215 Q48 230 55 240" stroke-width="2.5" opacity="0.6"/>
-          <path d="M265 175 Q280 190 285 210 Q287 225 282 238" stroke-width="2.5" opacity="0.6"/>
-          <path d="M60 185 Q45 200 42 225" stroke-width="2" opacity="0.4"/>
+        <!-- Left plate AI slop text -->
+        <g id="leftText" font-family="monospace" font-size="6" fill="#f0b429" opacity="0.18" transform="rotate(-6 145 148)">
+          <text x="78" y="138">As an AI language model...</text>
+          <text x="95" y="152">It's worth noting that</text>
+          <text x="85" y="162">Great question!</text>
+          <text x="130" y="144">There are several key</text>
         </g>
 
-        <!-- Extra sloppy strands (hidden at first, revealed on scroll) -->
-        <g id="pastaExtra" fill="none" stroke="#f0b429" stroke-linecap="round" opacity="0" style="transition: opacity 0.4s ease-out, transform 0.4s ease-out;">
-          <path d="M55 185 Q35 210 30 245 Q28 260 35 272" stroke-width="2.5"/>
-          <path d="M275 178 Q298 200 305 235 Q308 255 300 268" stroke-width="2.5"/>
-          <path d="M48 190 Q25 220 20 255" stroke-width="2"/>
-          <path d="M280 185 Q305 215 312 250" stroke-width="2"/>
-          <path d="M95 182 Q75 210 65 250 Q60 270 68 280" stroke-width="2"/>
-          <path d="M240 180 Q260 215 270 260 Q275 275 268 285" stroke-width="2"/>
+        <!-- Left plate sauce -->
+        <circle cx="100" cy="158" r="2.5" fill="#e05252" opacity="0.25"/>
+        <circle cx="170" cy="155" r="2" fill="#e05252" opacity="0.2"/>
+        <circle cx="135" cy="165" r="2" fill="#e05252" opacity="0.18"/>
+
+        <!-- RIGHT PLATE (destination — initially empty) -->
+        <ellipse cx="435" cy="175" rx="110" ry="40" fill="#1a1f26" opacity="0.5"/>
+        <ellipse cx="435" cy="165" rx="105" ry="38" fill="#e6edf3" opacity="0.12"/>
+        <ellipse cx="435" cy="165" rx="105" ry="38" fill="none" stroke="#8b949e" stroke-width="1.5" opacity="0.4"/>
+
+        <!-- Right plate pasta (same as left, shifted 290px right, slightly rotated for sloppiness) -->
+        <g id="rightPasta" fill="none" stroke="#f0b429" stroke-width="2.5" stroke-linecap="round" opacity="0" transform="translate(290 0)">
+          <g transform="rotate(3 145 155)">
+            <path d="M80 155 Q95 125 115 145 Q130 158 110 150 Q90 142 108 128 Q130 112 145 140 Q152 158 130 152"/>
+            <path d="M110 162 Q140 135 135 155 Q130 170 155 148 Q170 132 162 155 Q155 172 180 155"/>
+            <path d="M90 148 Q108 118 135 138 Q150 150 125 145 Q100 140 120 122 Q148 105 165 135 Q172 155 152 148"/>
+            <path d="M135 162 Q158 142 150 158 Q142 172 170 150 Q188 132 180 155 Q175 170 200 158"/>
+            <path d="M72 168 Q85 148 100 160 Q112 168 95 163 Q78 158 92 145"/>
+            <path d="M170 162 Q185 145 192 158 Q196 168 208 158 Q215 148 212 162"/>
+          </g>
         </g>
 
-        <!-- AI slop text woven into pasta (low opacity) -->
-        <g id="pastaText" font-family="monospace" font-size="7" fill="#f0b429" opacity="0.2" transform="rotate(-8 170 155)" style="transition: opacity 0.3s ease-out;">
-          <text x="88" y="142">As an AI language model...</text>
-          <text x="108" y="158">It's worth noting that</text>
-          <text x="95" y="170">Great question!</text>
-          <text x="150" y="148">There are several key</text>
-          <text x="130" y="180">considerations to keep</text>
+        <!-- Right plate slop text (same text, shifted) -->
+        <g id="rightText" font-family="monospace" font-size="6" fill="#f0b429" opacity="0" transform="translate(290 0) rotate(-6 145 148)">
+          <text x="78" y="138">As an AI language model...</text>
+          <text x="95" y="152">It's worth noting that</text>
+          <text x="85" y="162">Great question!</text>
+          <text x="130" y="144">There are several key</text>
         </g>
 
-        <!-- Extra slop text (revealed on scroll) -->
-        <g id="pastaTextExtra" font-family="monospace" font-size="6.5" fill="#f0b429" opacity="0" style="transition: opacity 0.4s ease-out;">
-          <text x="60" y="200" transform="rotate(-12 80 200)">I hope this helps!</text>
-          <text x="200" y="205" transform="rotate(10 240 205)">Let me elaborate...</text>
-          <text x="30" y="250" transform="rotate(-5 60 250)">Furthermore...</text>
-          <text x="240" y="255" transform="rotate(8 270 255)">In conclusion...</text>
+        <!-- Right plate sauce (same spots, shifted) -->
+        <g id="rightSauce" opacity="0" transform="translate(290 0)">
+          <circle cx="100" cy="158" r="2.5" fill="#e05252" opacity="0.25"/>
+          <circle cx="170" cy="155" r="2" fill="#e05252" opacity="0.2"/>
+          <circle cx="135" cy="165" r="2" fill="#e05252" opacity="0.18"/>
         </g>
 
-        <!-- Fork -->
-        <g id="pastaFork" transform="translate(175, 80) rotate(20)" style="transition: transform 0.3s ease-out;">
-          <!-- Handle -->
-          <rect x="-2" y="0" width="4" height="80" rx="2" fill="#8b949e" opacity="0.7"/>
-          <!-- Tines -->
-          <rect x="-8" y="-20" width="2" height="22" rx="1" fill="#8b949e" opacity="0.7"/>
-          <rect x="-3" y="-22" width="2" height="24" rx="1" fill="#8b949e" opacity="0.7"/>
-          <rect x="2" y="-22" width="2" height="24" rx="1" fill="#8b949e" opacity="0.7"/>
-          <rect x="7" y="-20" width="2" height="22" rx="1" fill="#8b949e" opacity="0.7"/>
-          <!-- Pasta wrapped on fork -->
-          <path d="M-10 -5 Q-5 -12 0 -5 Q5 2 10 -5 Q5 -15 -2 -8 Q-10 0 -8 -8" fill="none" stroke="#f0b429" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>
+        <!-- Trailing strands between plates (grow on scroll via dashoffset) -->
+        <g id="trailingStrands" fill="none" stroke="#f0b429" stroke-linecap="round">
+          <path d="M200 150 Q260 120 290 135 Q320 150 350 140 Q380 130 395 150" stroke-width="2.5" stroke-dasharray="220" stroke-dashoffset="220"/>
+          <path d="M195 158 Q250 180 290 160 Q330 140 370 155 Q400 165 410 158" stroke-width="2" stroke-dasharray="240" stroke-dashoffset="240"/>
+          <path d="M205 145 Q270 110 310 130 Q350 150 385 145" stroke-width="2" stroke-dasharray="200" stroke-dashoffset="200"/>
+          <path d="M198 165 Q240 195 290 175 Q340 155 380 168 Q405 178 420 165" stroke-width="1.5" stroke-dasharray="250" stroke-dashoffset="250" opacity="0.6"/>
         </g>
 
-        <!-- Small sauce splatter for personality -->
-        <g id="pastaSauce" style="transition: opacity 0.3s ease-out;">
-          <circle cx="100" cy="170" r="3" fill="#e05252" opacity="0.3"/>
-          <circle cx="220" cy="165" r="2" fill="#e05252" opacity="0.25"/>
-          <circle cx="150" cy="175" r="2.5" fill="#e05252" opacity="0.2"/>
+        <!-- Drips falling between plates (appear on scroll) -->
+        <g id="drips" fill="none" stroke="#f0b429" stroke-linecap="round" opacity="0">
+          <path d="M260 165 Q258 185 262 200" stroke-width="1.5"/>
+          <path d="M310 160 Q312 180 308 198" stroke-width="1.5"/>
+          <path d="M340 168 Q338 188 342 205" stroke-width="1.5"/>
+          <circle cx="262" cy="203" r="2" fill="#f0b429"/>
+          <circle cx="308" cy="201" r="1.5" fill="#f0b429"/>
+          <circle cx="342" cy="208" r="1.8" fill="#f0b429"/>
         </g>
 
-        <!-- Extra sauce splatters (revealed on scroll) -->
-        <g id="pastaSauceExtra" opacity="0" style="transition: opacity 0.4s ease-out;">
-          <circle cx="55" cy="230" r="4" fill="#e05252" opacity="0.35"/>
-          <circle cx="285" cy="240" r="3" fill="#e05252" opacity="0.3"/>
-          <circle cx="40" cy="255" r="2.5" fill="#e05252" opacity="0.25"/>
-          <circle cx="300" cy="260" r="2" fill="#e05252" opacity="0.2"/>
-          <circle cx="170" cy="195" r="3.5" fill="#e05252" opacity="0.3"/>
+        <!-- Sauce drip between plates -->
+        <g id="sauceDrip" opacity="0">
+          <circle cx="290" cy="190" r="3" fill="#e05252" opacity="0.3"/>
+          <circle cx="320" cy="195" r="2" fill="#e05252" opacity="0.25"/>
         </g>
+
+        <!-- FORK (moves from left plate to right plate) -->
+        <g id="theFork">
+          <!-- Handle (goes up) -->
+          <rect x="-2" y="-70" width="4" height="70" rx="2" fill="#8b949e" opacity="0.7"/>
+          <!-- Tines (go down into pasta) -->
+          <rect x="-8" y="0" width="2" height="20" rx="1" fill="#8b949e" opacity="0.7"/>
+          <rect x="-3" y="0" width="2" height="22" rx="1" fill="#8b949e" opacity="0.7"/>
+          <rect x="2" y="0" width="2" height="22" rx="1" fill="#8b949e" opacity="0.7"/>
+          <rect x="7" y="0" width="2" height="20" rx="1" fill="#8b949e" opacity="0.7"/>
+          <!-- Pasta clump on fork (visible during transit) -->
+          <g id="forkPasta" opacity="0">
+            <path d="M-12 16 Q-6 24 0 16 Q6 8 12 16" fill="none" stroke="#f0b429" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M-8 20 Q0 28 8 20" fill="none" stroke="#f0b429" stroke-width="2" stroke-linecap="round"/>
+            <path d="M-14 12 Q-10 5 -4 14" fill="none" stroke="#f0b429" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+            <path d="M4 14 Q10 5 14 12" fill="none" stroke="#f0b429" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+          </g>
+        </g>
+
+        <!-- Labels -->
+        <text x="145" y="218" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e" opacity="0.6">AI output</text>
+        <text id="rightLabel" x="435" y="218" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e" opacity="0">Your message</text>
+
       </svg>
     </div>
 
@@ -475,6 +502,84 @@
     </ol>
   </section>
 
+  <!-- Second illustration: the right way — less pasta on the right plate -->
+  <section style="text-align:center;">
+    <h2>Watch your portion size</h2>
+    <p class="callout" style="margin-top:0; margin-bottom:2rem;">Nobody ordered the whole pot. Take what you need, leave the rest.</p>
+
+    <div class="illustration" style="max-width:580px;">
+      <svg id="pastaSvg2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 240" aria-label="A fork carefully moving a small portion of spaghetti from one plate to another">
+
+        <!-- LEFT PLATE (source — full of pasta) -->
+        <ellipse cx="145" cy="175" rx="110" ry="40" fill="#1a1f26" opacity="0.5"/>
+        <ellipse cx="145" cy="165" rx="105" ry="38" fill="#e6edf3" opacity="0.12"/>
+        <ellipse cx="145" cy="165" rx="105" ry="38" fill="none" stroke="#8b949e" stroke-width="1.5" opacity="0.4"/>
+
+        <!-- Left plate pasta (full) -->
+        <g id="leftPasta2" fill="none" stroke="#f0b429" stroke-width="2.5" stroke-linecap="round" opacity="0.9">
+          <path d="M80 155 Q95 125 115 145 Q130 158 110 150 Q90 142 108 128 Q130 112 145 140 Q152 158 130 152"/>
+          <path d="M110 162 Q140 135 135 155 Q130 170 155 148 Q170 132 162 155 Q155 172 180 155"/>
+          <path d="M90 148 Q108 118 135 138 Q150 150 125 145 Q100 140 120 122 Q148 105 165 135 Q172 155 152 148"/>
+          <path d="M135 162 Q158 142 150 158 Q142 172 170 150 Q188 132 180 155 Q175 170 200 158"/>
+          <path d="M72 168 Q85 148 100 160 Q112 168 95 163 Q78 158 92 145"/>
+          <path d="M170 162 Q185 145 192 158 Q196 168 208 158 Q215 148 212 162"/>
+        </g>
+
+        <!-- Left plate AI slop text -->
+        <g id="leftText2" font-family="monospace" font-size="6" fill="#f0b429" opacity="0.18" transform="rotate(-6 145 148)">
+          <text x="78" y="138">As an AI language model...</text>
+          <text x="95" y="152">It's worth noting that</text>
+          <text x="85" y="162">Great question!</text>
+          <text x="130" y="144">There are several key</text>
+        </g>
+
+        <!-- Left plate sauce -->
+        <circle cx="100" cy="158" r="2.5" fill="#e05252" opacity="0.25"/>
+        <circle cx="170" cy="155" r="2" fill="#e05252" opacity="0.2"/>
+        <circle cx="135" cy="165" r="2" fill="#e05252" opacity="0.18"/>
+
+        <!-- RIGHT PLATE (destination — gets only a small, tidy portion) -->
+        <ellipse cx="435" cy="175" rx="110" ry="40" fill="#1a1f26" opacity="0.5"/>
+        <ellipse cx="435" cy="165" rx="105" ry="38" fill="#e6edf3" opacity="0.12"/>
+        <ellipse cx="435" cy="165" rx="105" ry="38" fill="none" stroke="#8b949e" stroke-width="1.5" opacity="0.4"/>
+
+        <!-- Right plate pasta — just a small neat portion (center of plate) -->
+        <g id="rightPasta2" fill="none" stroke="#f0b429" stroke-width="2.5" stroke-linecap="round" opacity="0">
+          <path d="M420 158 Q430 145 440 155 Q448 162 435 158 Q425 154 435 148"/>
+          <path d="M430 160 Q442 150 440 158 Q438 164 450 155"/>
+        </g>
+
+        <!-- Right plate — minimal sauce, tidy -->
+        <g id="rightSauce2" opacity="0">
+          <circle cx="435" cy="160" r="1.5" fill="#e05252" opacity="0.2"/>
+        </g>
+
+        <!-- Trailing strand — just one small one, tidy -->
+        <g id="trailingStrands2" fill="none" stroke="#f0b429" stroke-linecap="round">
+          <path d="M205 155 Q280 140 340 148 Q390 155 420 155" stroke-width="2" stroke-dasharray="240" stroke-dashoffset="240"/>
+        </g>
+
+        <!-- FORK -->
+        <g id="theFork2">
+          <rect x="-2" y="-70" width="4" height="70" rx="2" fill="#8b949e" opacity="0.7"/>
+          <rect x="-8" y="0" width="2" height="20" rx="1" fill="#8b949e" opacity="0.7"/>
+          <rect x="-3" y="0" width="2" height="22" rx="1" fill="#8b949e" opacity="0.7"/>
+          <rect x="2" y="0" width="2" height="22" rx="1" fill="#8b949e" opacity="0.7"/>
+          <rect x="7" y="0" width="2" height="20" rx="1" fill="#8b949e" opacity="0.7"/>
+          <!-- Small, tidy pasta on fork -->
+          <g id="forkPasta2" opacity="0">
+            <path d="M-6 16 Q0 22 6 16" fill="none" stroke="#f0b429" stroke-width="2" stroke-linecap="round"/>
+          </g>
+        </g>
+
+        <!-- Labels -->
+        <text x="145" y="218" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e" opacity="0.6">AI output</text>
+        <text id="rightLabel2" x="435" y="218" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" fill="#8b949e" opacity="0">Your message</text>
+
+      </svg>
+    </div>
+  </section>
+
   <!-- TL;DR + Share -->
   <section class="share-section">
     <div class="tldr">
@@ -524,56 +629,123 @@
     setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
   });
 
-  // Scroll-driven pasta sloppiness
-  const svg = document.getElementById('pastaSvg');
-  const pastaMain = document.getElementById('pastaMain');
-  const pastaFalling = document.getElementById('pastaFalling');
-  const pastaExtra = document.getElementById('pastaExtra');
-  const pastaText = document.getElementById('pastaText');
-  const pastaTextExtra = document.getElementById('pastaTextExtra');
-  const pastaFork = document.getElementById('pastaFork');
-  const pastaSauce = document.getElementById('pastaSauce');
-  const pastaSauceExtra = document.getElementById('pastaSauceExtra');
+  // Scroll-driven: fork sloppily moves pasta from left plate to right
+  const theFork = document.getElementById('theFork');
+  const forkPasta = document.getElementById('forkPasta');
+  const leftPasta = document.getElementById('leftPasta');
+  const leftText = document.getElementById('leftText');
+  const rightPasta = document.getElementById('rightPasta');
+  const rightText = document.getElementById('rightText');
+  const rightSauce = document.getElementById('rightSauce');
+  const rightLabel = document.getElementById('rightLabel');
+  const trailingStrands = document.getElementById('trailingStrands');
+  const drips = document.getElementById('drips');
+  const sauceDrip = document.getElementById('sauceDrip');
+
+  // Fork path: starts in left plate, arcs up, lands in right plate
+  const forkStartX = 155, forkStartY = 55;
+  const forkEndX = 440, forkEndY = 55;
+  const forkArcPeak = -15; // how high the fork lifts
 
   function updateSloppiness() {
-    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-    const t = Math.min(window.scrollY / maxScroll, 1); // 0 at top, 1 at bottom
+    const t = Math.max(0, Math.min(1, window.scrollY / 100));
 
-    // Main tangle spreads and rotates slightly
-    const mainRotate = t * 4;
-    const mainScale = 1 + t * 0.08;
-    pastaMain.setAttribute('transform', `rotate(${mainRotate} 170 160) scale(${mainScale})`);
+    // Fork position: arc from left plate to right plate
+    const forkX = forkStartX + (forkEndX - forkStartX) * t;
+    const forkY = forkStartY + forkArcPeak * Math.sin(t * Math.PI);
+    // Fork wobbles during transit
+    const wobble = Math.sin(t * Math.PI * 3) * 8 * Math.sin(t * Math.PI);
+    const forkRotate = 12 + wobble;
+    theFork.setAttribute('transform', `translate(${forkX} ${forkY}) rotate(${forkRotate})`);
 
-    // Falling strands stretch downward
-    const fallY = t * 12;
-    const fallScale = 1 + t * 0.15;
-    pastaFalling.setAttribute('transform', `translate(0 ${fallY}) scale(1 ${fallScale})`);
+    // Pasta clump on fork: visible during transit (0.1 to 0.9)
+    const clumpOpacity = t > 0.05 && t < 0.95 ? Math.min(1, Math.sin(t * Math.PI) * 2) : 0;
+    forkPasta.setAttribute('opacity', String(clumpOpacity));
 
-    // Extra sloppy strands fade in after 20% scroll
-    const extraT = Math.max(0, (t - 0.2) / 0.4);
-    pastaExtra.setAttribute('opacity', Math.min(extraT, 0.7));
-    pastaExtra.setAttribute('transform', `translate(0 ${extraT * 8})`);
+    // Left plate pasta fades out
+    leftPasta.setAttribute('opacity', String(0.9 * (1 - t * 0.6)));
+    leftText.setAttribute('opacity', String(0.18 * (1 - t * 0.7)));
 
-    // AI slop text gets more visible
-    pastaText.setAttribute('opacity', 0.2 + t * 0.25);
+    // Right plate pasta fades in (sloppily — starts around 30%)
+    const rightT = Math.max(0, (t - 0.3) / 0.7);
+    rightPasta.setAttribute('opacity', String(rightT * 0.85));
+    rightText.setAttribute('opacity', String(rightT * 0.2));
+    rightSauce.setAttribute('opacity', String(rightT * 0.8));
+    rightLabel.setAttribute('opacity', String(rightT * 0.6));
 
-    // Extra slop text fades in
-    pastaTextExtra.setAttribute('opacity', Math.min(extraT * 0.35, 0.35));
+    // Trailing strands between plates grow during transit
+    const trailT = Math.sin(t * Math.PI); // peaks mid-transit
+    trailingStrands.querySelectorAll('path').forEach(p => {
+      const len = parseFloat(p.getAttribute('stroke-dasharray'));
+      p.setAttribute('stroke-dashoffset', String(len * (1 - trailT)));
+    });
 
-    // Fork tilts as if giving up
-    const forkRotate = 20 + t * 15;
-    pastaFork.setAttribute('transform', `translate(175 80) rotate(${forkRotate})`);
-
-    // Extra sauce splatters appear
-    pastaSauceExtra.setAttribute('opacity', Math.min(extraT * 0.8, 0.8));
-
-    // Expand viewBox to show more mess
-    const extraHeight = Math.round(t * 30);
-    svg.setAttribute('viewBox', `0 0 340 ${290 + extraHeight}`);
+    // Drips appear mid-transit
+    drips.setAttribute('opacity', String(trailT * 0.7));
+    sauceDrip.setAttribute('opacity', String(trailT * 0.5));
   }
 
   window.addEventListener('scroll', updateSloppiness, { passive: true });
   updateSloppiness();
+
+  // Second illustration: the right way — small, tidy portion
+  const svg2 = document.getElementById('pastaSvg2');
+  const theFork2 = document.getElementById('theFork2');
+  const forkPasta2 = document.getElementById('forkPasta2');
+  const leftPasta2 = document.getElementById('leftPasta2');
+  const leftText2 = document.getElementById('leftText2');
+  const rightPasta2 = document.getElementById('rightPasta2');
+  const rightSauce2 = document.getElementById('rightSauce2');
+  const rightLabel2 = document.getElementById('rightLabel2');
+  const trailingStrands2 = document.getElementById('trailingStrands2');
+
+  let svg2Start = null;
+
+  function updateGoodPasta() {
+    const rect = svg2.getBoundingClientRect();
+    // Start animating when the SVG enters the viewport
+    if (svg2Start === null) {
+      if (rect.top < window.innerHeight * 0.4) {
+        svg2Start = window.scrollY;
+      } else {
+        // Not visible yet — park fork on left plate
+        theFork2.setAttribute('transform', `translate(155 55) rotate(12)`);
+        return;
+      }
+    }
+
+    const scrollSince = window.scrollY - svg2Start;
+    const t = Math.max(0, Math.min(1, scrollSince / 100));
+
+    // Fork arcs from left to right, smooth and steady
+    const forkX = 155 + (440 - 155) * t;
+    const forkY = 55 + (-12) * Math.sin(t * Math.PI);
+    const forkRotate = 12 + Math.sin(t * Math.PI * 2) * 3;
+    theFork2.setAttribute('transform', `translate(${forkX} ${forkY}) rotate(${forkRotate})`);
+
+    // Small pasta clump on fork during transit
+    const clumpOpacity = t > 0.05 && t < 0.95 ? Math.min(1, Math.sin(t * Math.PI) * 2) : 0;
+    forkPasta2.setAttribute('opacity', String(clumpOpacity));
+
+    // Left plate stays mostly full (only loses a little)
+    leftPasta2.setAttribute('opacity', String(0.9 * (1 - t * 0.15)));
+    leftText2.setAttribute('opacity', String(0.18 * (1 - t * 0.3)));
+
+    // Right plate gets a small tidy portion
+    const rightT = Math.max(0, (t - 0.4) / 0.6);
+    rightPasta2.setAttribute('opacity', String(rightT * 0.9));
+    rightSauce2.setAttribute('opacity', String(rightT * 0.6));
+    rightLabel2.setAttribute('opacity', String(rightT * 0.7));
+
+    // Single tidy trailing strand
+    trailingStrands2.querySelectorAll('path').forEach(p => {
+      const len = parseFloat(p.getAttribute('stroke-dasharray'));
+      p.setAttribute('stroke-dashoffset', String(len * (1 - Math.sin(t * Math.PI))));
+    });
+  }
+
+  window.addEventListener('scroll', updateGoodPasta, { passive: true });
+  updateGoodPasta();
 
   // Copy link button
   const copyBtn = document.getElementById('copyBtn');
