@@ -397,15 +397,14 @@
 
       <div class="card card-good">
         <div class="card-header">Al Dente</div>
-        <p>We should migrate the user service to async. The current sync handlers are our #1 bottleneck under load &mdash; p99 latency spikes to 4s during peak hours.</p>
-        <p>I'd start with the notification and email endpoints since they're fire-and-forget. The auth flow should stay sync for now (too risky mid-quarter).</p>
-        <p>Main risk is error handling &mdash; I'll add dead letter queues from the start so we don't lose failed jobs silently.</p>
-        <p>Want me to draft the RFC?</p>
+        <p>Hey team &mdash; I dug into the async migration question. Short version: I think we should do it, but only for notifications and email right now.</p>
+        <p>Those two endpoints are fire-and-forget and they're causing our worst p99 spikes (4s during peak). Auth flow stays sync &mdash; too risky to touch mid-quarter.</p>
+        <p>Biggest gotcha is silent failures, so I'd want dead letter queues from day one. I'll put together an RFC this week if we're aligned.</p>
       </div>
 
     </div>
 
-    <p class="callout">Same topic. One is a wall of AI filler. The other has a point of view, specific data, and a clear next step. Took 2 minutes to edit.</p>
+    <p class="callout">Same topic. One is raw AI output dumped into Slack. The other is a person who used AI to research, then wrote their own message &mdash; with their own voice, their own judgment, and a concrete next step.</p>
   </section>
 
   <!-- Rules -->
