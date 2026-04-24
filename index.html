@@ -318,7 +318,7 @@
     <p class="subtitle">Your AI wrote it. But did <em>you</em> read it?</p>
 
     <div class="illustration">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 260" aria-label="A plate of messy spaghetti with AI-generated text tangled in the pasta strands">
+      <svg id="pastaSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 290" aria-label="A plate of messy spaghetti with AI-generated text tangled in the pasta strands">
         <!-- Plate shadow -->
         <ellipse cx="170" cy="195" rx="140" ry="50" fill="#1a1f26" opacity="0.5"/>
         <!-- Plate -->
@@ -327,7 +327,7 @@
         <ellipse cx="170" cy="175" rx="115" ry="38" fill="none" stroke="#8b949e" stroke-width="0.5" opacity="0.2"/>
 
         <!-- Pasta strands - tangled mess -->
-        <g fill="none" stroke="#f0b429" stroke-width="3" stroke-linecap="round" opacity="0.9">
+        <g id="pastaMain" fill="none" stroke="#f0b429" stroke-width="3" stroke-linecap="round" opacity="0.9" style="transition: transform 0.3s ease-out;">
           <!-- Main tangle -->
           <path d="M90 165 Q100 130 130 150 Q150 165 125 155 Q100 145 120 130 Q145 115 160 145 Q170 165 145 160"/>
           <path d="M130 170 Q160 140 155 160 Q150 180 180 155 Q200 135 190 160 Q180 185 210 160"/>
@@ -335,15 +335,27 @@
           <path d="M155 170 Q185 145 175 165 Q165 185 200 155 Q225 130 215 160 Q205 185 240 165"/>
           <path d="M80 175 Q95 150 115 165 Q130 175 110 170 Q90 165 105 150"/>
           <path d="M200 170 Q220 145 230 165 Q235 180 250 165 Q260 150 255 170"/>
+        </g>
 
-          <!-- Strands falling off plate -->
+        <!-- Strands falling off plate (animate separately) -->
+        <g id="pastaFalling" fill="none" stroke="#f0b429" stroke-linecap="round" style="transition: transform 0.3s ease-out, opacity 0.3s ease-out;">
           <path d="M70 180 Q55 195 50 215 Q48 230 55 240" stroke-width="2.5" opacity="0.6"/>
           <path d="M265 175 Q280 190 285 210 Q287 225 282 238" stroke-width="2.5" opacity="0.6"/>
           <path d="M60 185 Q45 200 42 225" stroke-width="2" opacity="0.4"/>
         </g>
 
+        <!-- Extra sloppy strands (hidden at first, revealed on scroll) -->
+        <g id="pastaExtra" fill="none" stroke="#f0b429" stroke-linecap="round" opacity="0" style="transition: opacity 0.4s ease-out, transform 0.4s ease-out;">
+          <path d="M55 185 Q35 210 30 245 Q28 260 35 272" stroke-width="2.5"/>
+          <path d="M275 178 Q298 200 305 235 Q308 255 300 268" stroke-width="2.5"/>
+          <path d="M48 190 Q25 220 20 255" stroke-width="2"/>
+          <path d="M280 185 Q305 215 312 250" stroke-width="2"/>
+          <path d="M95 182 Q75 210 65 250 Q60 270 68 280" stroke-width="2"/>
+          <path d="M240 180 Q260 215 270 260 Q275 275 268 285" stroke-width="2"/>
+        </g>
+
         <!-- AI slop text woven into pasta (low opacity) -->
-        <g font-family="monospace" font-size="7" fill="#f0b429" opacity="0.2" transform="rotate(-8 170 155)">
+        <g id="pastaText" font-family="monospace" font-size="7" fill="#f0b429" opacity="0.2" transform="rotate(-8 170 155)" style="transition: opacity 0.3s ease-out;">
           <text x="88" y="142">As an AI language model...</text>
           <text x="108" y="158">It's worth noting that</text>
           <text x="95" y="170">Great question!</text>
@@ -351,8 +363,16 @@
           <text x="130" y="180">considerations to keep</text>
         </g>
 
+        <!-- Extra slop text (revealed on scroll) -->
+        <g id="pastaTextExtra" font-family="monospace" font-size="6.5" fill="#f0b429" opacity="0" style="transition: opacity 0.4s ease-out;">
+          <text x="60" y="200" transform="rotate(-12 80 200)">I hope this helps!</text>
+          <text x="200" y="205" transform="rotate(10 240 205)">Let me elaborate...</text>
+          <text x="30" y="250" transform="rotate(-5 60 250)">Furthermore...</text>
+          <text x="240" y="255" transform="rotate(8 270 255)">In conclusion...</text>
+        </g>
+
         <!-- Fork -->
-        <g transform="translate(175, 80) rotate(20)">
+        <g id="pastaFork" transform="translate(175, 80) rotate(20)" style="transition: transform 0.3s ease-out;">
           <!-- Handle -->
           <rect x="-2" y="0" width="4" height="80" rx="2" fill="#8b949e" opacity="0.7"/>
           <!-- Tines -->
@@ -365,9 +385,20 @@
         </g>
 
         <!-- Small sauce splatter for personality -->
-        <circle cx="100" cy="170" r="3" fill="#e05252" opacity="0.3"/>
-        <circle cx="220" cy="165" r="2" fill="#e05252" opacity="0.25"/>
-        <circle cx="150" cy="175" r="2.5" fill="#e05252" opacity="0.2"/>
+        <g id="pastaSauce" style="transition: opacity 0.3s ease-out;">
+          <circle cx="100" cy="170" r="3" fill="#e05252" opacity="0.3"/>
+          <circle cx="220" cy="165" r="2" fill="#e05252" opacity="0.25"/>
+          <circle cx="150" cy="175" r="2.5" fill="#e05252" opacity="0.2"/>
+        </g>
+
+        <!-- Extra sauce splatters (revealed on scroll) -->
+        <g id="pastaSauceExtra" opacity="0" style="transition: opacity 0.4s ease-out;">
+          <circle cx="55" cy="230" r="4" fill="#e05252" opacity="0.35"/>
+          <circle cx="285" cy="240" r="3" fill="#e05252" opacity="0.3"/>
+          <circle cx="40" cy="255" r="2.5" fill="#e05252" opacity="0.25"/>
+          <circle cx="300" cy="260" r="2" fill="#e05252" opacity="0.2"/>
+          <circle cx="170" cy="195" r="3.5" fill="#e05252" opacity="0.3"/>
+        </g>
       </svg>
     </div>
 
@@ -492,6 +523,57 @@
   toggle.addEventListener('click', () => {
     setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
   });
+
+  // Scroll-driven pasta sloppiness
+  const svg = document.getElementById('pastaSvg');
+  const pastaMain = document.getElementById('pastaMain');
+  const pastaFalling = document.getElementById('pastaFalling');
+  const pastaExtra = document.getElementById('pastaExtra');
+  const pastaText = document.getElementById('pastaText');
+  const pastaTextExtra = document.getElementById('pastaTextExtra');
+  const pastaFork = document.getElementById('pastaFork');
+  const pastaSauce = document.getElementById('pastaSauce');
+  const pastaSauceExtra = document.getElementById('pastaSauceExtra');
+
+  function updateSloppiness() {
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const t = Math.min(window.scrollY / maxScroll, 1); // 0 at top, 1 at bottom
+
+    // Main tangle spreads and rotates slightly
+    const mainRotate = t * 4;
+    const mainScale = 1 + t * 0.08;
+    pastaMain.setAttribute('transform', `rotate(${mainRotate} 170 160) scale(${mainScale})`);
+
+    // Falling strands stretch downward
+    const fallY = t * 12;
+    const fallScale = 1 + t * 0.15;
+    pastaFalling.setAttribute('transform', `translate(0 ${fallY}) scale(1 ${fallScale})`);
+
+    // Extra sloppy strands fade in after 20% scroll
+    const extraT = Math.max(0, (t - 0.2) / 0.4);
+    pastaExtra.setAttribute('opacity', Math.min(extraT, 0.7));
+    pastaExtra.setAttribute('transform', `translate(0 ${extraT * 8})`);
+
+    // AI slop text gets more visible
+    pastaText.setAttribute('opacity', 0.2 + t * 0.25);
+
+    // Extra slop text fades in
+    pastaTextExtra.setAttribute('opacity', Math.min(extraT * 0.35, 0.35));
+
+    // Fork tilts as if giving up
+    const forkRotate = 20 + t * 15;
+    pastaFork.setAttribute('transform', `translate(175 80) rotate(${forkRotate})`);
+
+    // Extra sauce splatters appear
+    pastaSauceExtra.setAttribute('opacity', Math.min(extraT * 0.8, 0.8));
+
+    // Expand viewBox to show more mess
+    const extraHeight = Math.round(t * 30);
+    svg.setAttribute('viewBox', `0 0 340 ${290 + extraHeight}`);
+  }
+
+  window.addEventListener('scroll', updateSloppiness, { passive: true });
+  updateSloppiness();
 
   // Copy link button
   const copyBtn = document.getElementById('copyBtn');
